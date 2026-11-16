@@ -111,6 +111,10 @@ function createTelebirrClient(cfg, { log = console } = {}) {
         trans_currency: "ETB",
         timeout_express: `${t.orderTimeoutMin}m`,
         business_type: "BuyGoods",
+        // Required in practice: without these the sandbox answers 60000005.
+        payee_identifier: t.merchantCode,
+        payee_identifier_type: "04", // paid to a short code
+        payee_type: "5000",
       };
       if (redirectUrl) biz.redirect_url = redirectUrl;
       const res = await authed(PATHS.preOrder, "payment.preorder", biz, "preOrder");
