@@ -1,0 +1,23 @@
+<view ma:if="{{ref}}" class="wrap center">
+  <view style="width:76px;height:76px;border-radius:38px;background:#8CC63F;margin:12px auto 10px;display:flex;align-items:center;justify-content:center"><image src="../../res/icons/check-white.png" style="width:40px;height:40px" /></view>
+  <view style="font-size:20px;font-weight:600">Request sent</view>
+  <view class="muted small mt8">Reference <text class="bold" style="color:#1B1F1A">{{ref}}</text></view>
+  <view class="howto mt16" style="text-align:left">
+    <view class="t">What happens next</view>
+    <view class="li">1. Our wifi.et business team reviews your request.</view>
+    <view class="li">2. We contact you by {{contactBy}} to discuss it.</view>
+    <view class="li">3. We agree the campaign, hotspots and price, then your ads go live.</view>
+  </view>
+  <view class="cta mt16" bindtap="back">Back to Business</view>
+</view>
+<view ma:else class="wrap">
+  <view class="sect-t" style="margin-bottom:8px">Ad formats you're interested in <text class="req">*</text></view>
+  <view class="chips"><view ma:for="{{formats}}" ma:key="name" class="chip {{item.on ? 'on' : ''}}" data-n="{{item.name}}" bindtap="toggleFormat">{{item.name}}</view></view>
+  <view class="sect-t" style="margin:8px 0">Where</view>
+  <view class="chips"><view ma:for="{{areas}}" ma:key="name" class="chip {{item.on ? 'on' : ''}}" data-n="{{item.name}}" bindtap="toggleArea">{{item.name}}</view></view>
+  <view class="fld mt8"><view class="fld-l">Monthly budget</view><view class="sel" bindtap="pickBudget"><text class="{{budget ? '' : 'ph'}}">{{budget || 'Select…'}}</text><image class="chev" src="../../res/icons/chev-grey.png" /></view></view>
+  <view class="sect-t" style="margin:8px 0">How should we contact you?</view>
+  <view class="chips"><view ma:for="{{ways}}" ma:key="*this" class="chip {{contactBy == item ? 'on' : ''}}" data-n="{{item}}" bindtap="setWay">{{item}}</view></view>
+  <view class="fld mt8"><view class="fld-l">Message</view><input class="inp" maxlength="500" placeholder="Tell us about your campaign" bindinput="onMsg" /></view>
+  <view class="cta mt16 {{busy ? 'off' : ''}}" bindtap="send">Send request</view>
+</view>

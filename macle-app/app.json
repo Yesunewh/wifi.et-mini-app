@@ -1,0 +1,36 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/hotspots/index",
+    "pages/mine/index",
+    "pages/profile/index",
+    "pages/inbox/index",
+    "pages/success/index",
+    "pages/business/index",
+    "pages/kyc/index",
+    "pages/contact/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "wifi.et",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F3F4F2",
+    "capsuleTheme": "light"
+  },
+  "tabBar": {
+    "color": "#9AA196",
+    "selectedColor": "#5E8F22",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/home/index", "text": "Home", "iconPath": "res/icons/home-grey.png", "selectedIconPath": "res/icons/home-green.png" },
+      { "pagePath": "pages/hotspots/index", "text": "Hotspots", "iconPath": "res/icons/pin-grey.png", "selectedIconPath": "res/icons/pin-green.png" },
+      { "pagePath": "pages/mine/index", "text": "My Wi-Fi", "iconPath": "res/icons/wifi-grey.png", "selectedIconPath": "res/icons/wifi-green.png" },
+      { "pagePath": "pages/profile/index", "text": "Profile", "iconPath": "res/icons/user-grey.png", "selectedIconPath": "res/icons/user-green.png" }
+    ]
+  },
+  "networkTimeout": { "request": 20000, "uploadFile": 30000 },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

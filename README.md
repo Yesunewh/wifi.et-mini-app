@@ -4,7 +4,8 @@ wifi.et sells Wi-Fi packages for ethio telecom hotspots through the **telebirr**
 
 | Folder | What it is |
 |---|---|
-| `miniapp/` | The mini app front end (plain HTML/CSS/JS). Runs inside telebirr; packaged with the Macle "Convert H5 to MiniApp" tool. |
+| `macle-app/` | **The mini app** as a native Macle project (maml/mass/js), same format as telebirr's sample. Open in VS Code with the Macle extension. |
+| `miniapp/` | Earlier web (H5) version of the same screens; handy for testing in a browser. |
 | `server/` | The merchant back end (Node 22, Express, SQLite). Talks to the telebirr payment gateway, issues Wi-Fi codes, sends SMS, stores business KYC and sales requests. |
 | `demo/` | The original clickable demo (Option A and Option B) used for presentations. |
 | `docs/INTEGRATION.md` | Setup, telebirr flow, go-live checklist and open items. |

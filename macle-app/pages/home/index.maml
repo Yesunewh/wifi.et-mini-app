@@ -1,0 +1,87 @@
+<!-- Home: active pass, nearby hotspots, packages -->
+<view ma:if="{{dev}}" class="devbar">Development mode: payments are simulated</view>
+<view ma:if="{{state == 'loading'}}" class="state">
+  <image class="logo" src="../../res/images/wifiet.png" mode="aspectFit" />
+  <text>Loading…</text>
+</view>
+<view ma:elif="{{state == 'error'}}" class="state">
+  <image class="logo" src="../../res/images/wifiet.png" mode="aspectFit" />
+  <view>{{error}}</view>
+  <view class="cta mt16" bindtap="retry">Try again</view>
+</view>
+<view ma:else class="wrap">
+  <view class="hero">
+    <image class="logo" src="../../res/images/wifiet.png" mode="aspectFit" />
+    <view class="hero-t">Fast Wi-Fi at hotspots near you</view>
+    <view class="hero-s">Pay with telebirr. Get your code instantly.</view>
+  </view>
+
+  <view ma:if="{{pass}}">
+    <view class="sect"><text class="sect-t">Your Wi-Fi pass</text><text class="lnk" bindtap="goMine">My Wi-Fi</text></view>
+    <view class="pass">
+      <view class="row">
+        <view class="grow"><view class="pass-k">WIFI.ET PASS</view><view class="pass-n">{{pass.shortName}}</view></view>
+        <text class="badge {{pass.live ? '' : 'wait'}}">{{pass.badge}}</text>
+      </view>
+      <view class="tear"></view>
+      <view class="row">
+        <view class="grow"><view class="small" style="opacity:.75">Wi-Fi code</view><view class="code">{{pass.code}}</view></view>
+        <view class="pass-btn" style="flex:none;padding:0 18px" bindtap="goMine">Connect</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="sect"><text class="sect-t">Hotspots</text><text class="lnk" bindtap="goHotspots">See all</text></view>
+  <view class="item" ma:for="{{hotspots}}" ma:key="id">
+    <view class="ring"><image src="../../res/icons/pin-green.png" /></view>
+    <view class="grow"><view class="item-t">{{item.name}}</view><view class="item-s">{{item.sub}}</view></view>
+  </view>
+
+  <view class="sect"><text class="sect-t">Buy a package</text></view>
+  <view class="seg">
+    <view ma:for="{{groups}}" ma:key="*this" class="seg-b {{tab == item ? 'on' : ''}}" data-g="{{item}}" bindtap="setTab">{{item}}</view>
+  </view>
+  <view class="item" ma:for="{{shown}}" ma:key="id">
+    <view class="ring"><image src="../../res/icons/wifi-green.png" /></view>
+    <view class="grow"><view class="item-t">{{item.data}}</view><view class="item-s">{{item.validity}} · all wifi.et hotspots</view></view>
+    <view class="buy" data-id="{{item.id}}" bindtap="buy">{{item.priceTxt}} ETB</view>
+  </view>
+
+  <view class="item" style="border:1px dashed #8CC63F" bindtap="goBusiness">
+    <view class="ring"><image src="../../res/icons/store-green.png" /></view>
+    <view class="grow"><view class="item-t">Own a business? Advertise on wifi.et</view><view class="item-s">Reach people when they connect at hotspots</view></view>
+    <image class="chev" src="../../res/icons/chev-grey.png" />
+  </view>
+</view>
+
+<!-- confirm purchase -->
+<view ma:if="{{sheet == 'confirm'}}" class="scrim" catchtap="closeSheet">
+  <view class="sheet" catchtap="noop">
+    <view class="grab"></view>
+    <view class="sheet-t">Confirm purchase</view>
+    <view class="sheet-s">Wi-Fi package</view>
+    <view class="amt">{{sel.priceTxt}}.00 <text style="font-size:16px">ETB</text></view>
+    <view class="rows">
+      <view class="kv"><text class="k">Package</text><text class="v">{{sel.name}}</text></view>
+      <view class="kv"><text class="k">Data</text><text class="v">{{sel.data}}</text></view>
+      <view class="kv"><text class="k">Validity</text><text class="v">{{sel.validity}} from first login</text></view>
+      <view class="kv"><text class="k">Code sent to</text><text class="v">{{msisdnTxt}}</text></view>
+      <view class="kv last"><text class="k">Pay with</text><text class="v">telebirr</text></view>
+    </view>
+    <view class="cta {{busy ? 'off' : ''}}" bindtap="pay">{{busy ? busyText : 'Pay with telebirr'}}</view>
+    <view class="cta ghost mt8" bindtap="closeSheet">Cancel</view>
+  </view>
+</view>
+
+<!-- phone number for Wi-Fi codes -->
+<view ma:if="{{sheet == 'phone'}}" class="scrim" catchtap="closeSheet">
+  <view class="sheet" catchtap="noop">
+    <view class="grab"></view>
+    <view class="sheet-t">Number for Wi-Fi codes</view>
+    <view class="sheet-s">We send your Wi-Fi code to this number by SMS.</view>
+    <input class="inp" type="number" placeholder="0912 345 678" value="{{phone}}" bindinput="onPhone" />
+    <view ma:if="{{error}}" class="err">{{error}}</view>
+    <view class="cta mt12" bindtap="savePhone">Save</view>
+    <view class="cta ghost mt8" bindtap="closeSheet">Cancel</view>
+  </view>
+</view>

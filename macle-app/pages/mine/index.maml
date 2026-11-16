@@ -1,0 +1,80 @@
+<view class="wrap">
+  <view class="tabs">
+    <view class="tab {{tab == 'Active' ? 'on' : ''}}" data-t="Active" bindtap="setTab">Active</view>
+    <view class="tab {{tab == 'History' ? 'on' : ''}}" data-t="History" bindtap="setTab">History</view>
+  </view>
+
+  <view ma:if="{{tab == 'Active'}}">
+    <view class="pass" ma:for="{{active}}" ma:key="orderId">
+      <view class="row">
+        <view class="grow"><view class="pass-k">WIFI.ET PASS</view><view class="pass-n">{{item.shortName}}</view></view>
+        <text class="badge {{item.live ? '' : 'wait'}}">{{item.badge}}</text>
+      </view>
+      <view class="row mt16">
+        <view class="pass-ring"><text class="m">{{item.ringMain}}</text><text class="s">{{item.ringSub}}</text></view>
+        <view class="grow">
+          <view class="fact"><text class="k">Validity </text>{{item.validityTxt}}</view>
+          <view class="fact"><text class="k">Where </text>All wifi.et hotspots</view>
+          <view class="fact"><text class="k">{{item.whenLabel}} </text>{{item.whenTxt}}</view>
+        </view>
+      </view>
+      <view class="tear"></view>
+      <view class="small" style="opacity:.75">Wi-Fi code</view>
+      <view class="code">{{item.code}}</view>
+      <view class="pass-acts">
+        <view class="pass-btn" data-id="{{item.orderId}}" bindtap="connect">Connect</view>
+        <view class="pass-btn alt" data-code="{{item.code}}" bindtap="copy">Copy code</view>
+      </view>
+    </view>
+    <view ma:if="{{loaded && active.length == 0}}" class="empty">
+      <view>No active Wi-Fi pass.</view>
+      <view class="cta mt12" bindtap="goHome">Buy a package</view>
+    </view>
+    <view class="howto mt8">
+      <view class="t">How to connect</view>
+      <view class="li">1. At any hotspot, tap Connect and scan the wifi.et QR sticker.</view>
+      <view class="li">2. Or join the wifi.et network and enter your code.</view>
+      <view class="li">3. Your pass starts at first login.</view>
+    </view>
+  </view>
+
+  <view ma:else>
+    <view class="strip">
+      <view class="strip-c"><view class="strip-n">{{spentTxt}}</view><view class="strip-l">ETB spent</view></view>
+      <view class="strip-c"><view class="strip-n">{{history.length}}</view><view class="strip-l">passes</view></view>
+      <view class="strip-c"><view class="strip-n">{{active.length}}</view><view class="strip-l">active</view></view>
+    </view>
+    <view ma:for="{{history}}" ma:key="orderId">
+      <view ma:if="{{item.showMonth}}" class="month">{{item.month}}</view>
+      <view class="card" style="margin-bottom:8px;padding:12px">
+        <view class="row" data-id="{{item.orderId}}" bindtap="toggle">
+          <view style="width:44px;height:48px;border-radius:12px;background:#EEF6E2;color:#2E5A12;text-align:center;margin-right:12px;flex:none">
+            <view style="font-size:17px;font-weight:700;margin-top:6px;line-height:1.1">{{item.day}}</view><view style="font-size:10px">{{item.mon}}</view>
+          </view>
+          <view class="grow"><view class="item-t">{{item.shortName}}</view><view class="item-s">{{item.data}} · {{item.validity}}</view></view>
+          <view style="text-align:right;flex:none"><view class="item-t">{{item.priceTxt}} ETB</view><view class="small muted">{{item.stateTxt}}</view></view>
+        </view>
+        <view ma:if="{{open == item.orderId}}" class="mt12">
+          <view class="kv"><text class="k">Order ID</text><text class="v">{{item.orderId}}</text></view>
+          <view class="kv" ma:if="{{item.transId}}"><text class="k">telebirr transaction</text><text class="v">{{item.transId}}</text></view>
+          <view class="kv last"><text class="k">Wi-Fi code</text><text class="v">{{item.code}}</text></view>
+        </view>
+      </view>
+    </view>
+    <view ma:if="{{loaded && history.length == 0}}" class="empty mt12">Your purchases will appear here.</view>
+  </view>
+</view>
+
+<!-- connect at a hotspot -->
+<view ma:if="{{sheet == 'connect'}}" class="scrim" catchtap="closeSheet">
+  <view class="sheet" catchtap="noop">
+    <view class="grab"></view>
+    <view class="sheet-t">Connect to a hotspot</view>
+    <view class="sheet-s">Scan the wifi.et sticker at the hotspot, or type the code printed under it.</view>
+    <view class="cta" bindtap="scan">Scan QR code</view>
+    <view class="sheet-s" style="margin:12px 0 8px">or</view>
+    <input class="inp" placeholder="Hotspot code, e.g. MESKEL" value="{{sticker}}" bindinput="onSticker" />
+    <view ma:if="{{error}}" class="err">{{error}}</view>
+    <view class="cta ghost mt12" bindtap="connectTyped">Connect with code</view>
+  </view>
+</view>

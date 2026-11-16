@@ -1,0 +1,31 @@
+<view class="wrap center" ma:if="{{order}}">
+  <view style="width:76px;height:76px;border-radius:38px;background:#8CC63F;margin:12px auto 10px;display:flex;align-items:center;justify-content:center">
+    <image src="../../res/icons/check-white.png" style="width:40px;height:40px" />
+  </view>
+  <view style="font-size:20px;font-weight:600">Payment successful</view>
+  <view style="font-size:30px;font-weight:600;margin:4px 0">{{amountTxt}}.00 ETB</view>
+  <view class="muted small">Paid to wifi.et{{order.transId ? ' · Transaction ' + order.transId : ''}}</view>
+
+  <view ma:if="{{order.code}}" class="pass mt16" style="text-align:left">
+    <view class="pass-k">YOUR WI-FI CODE</view>
+    <view class="code" style="font-size:26px;margin:4px 0 8px">{{order.code}}</view>
+    <view class="row small"><text class="grow">{{pkgName}}</text><text>Valid {{pkgValidity}}</text></view>
+  </view>
+  <view ma:else class="howto mt16" style="text-align:left">
+    <view class="t">Your code is on its way</view>
+    <view>Payment received. Your Wi-Fi code will appear in My Wi-Fi and arrive by SMS in a moment.</view>
+  </view>
+
+  <view class="howto mt12" style="text-align:left">
+    <view class="t">How to connect</view>
+    <view class="li">1. At any hotspot, open My Wi-Fi, tap Connect and scan the wifi.et sticker.</view>
+    <view class="li">2. Or join the wifi.et network and enter the code on the login page.</view>
+  </view>
+  <view class="card mt12 small row" style="text-align:left">
+    <image class="ico" src="../../res/icons/sms-green.png" style="margin-right:8px" />
+    <text class="grow">Code also sent by SMS to {{toTxt}}. Your package starts at first login.</text>
+  </view>
+  <view class="cta mt16" bindtap="goMine">View in My Wi-Fi</view>
+  <view class="cta ghost mt8" bindtap="goHome">Back to wifi.et</view>
+</view>
+<view ma:else class="state"><text>{{error || 'Loading…'}}</text></view>
