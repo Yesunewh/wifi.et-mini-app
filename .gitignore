@@ -1,0 +1,10 @@
+# secrets: never commit
+.env
+*.pem
+server/keys/
+# runtime data (database, uploaded KYC documents)
+server/data/
+node_modules/
+.DS_Store
+# telebirr JS SDK is distributed by the developer portal; download it locally
+miniapp/vendor/js-sdk.min.js
