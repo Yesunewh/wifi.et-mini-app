@@ -1,6 +1,7 @@
 "use strict";
 const https = require("node:https");
 const http = require("node:http");
+const tls = require("node:tls");
 
 /**
  * POST JSON and parse the JSON reply. Uses node:https so a custom CA can be
@@ -18,7 +19,8 @@ function postJson(url, body, { headers = {}, ca = null, timeoutMs = 20000 } = {}
         port: u.port || (u.protocol === "https:" ? 443 : 80),
         path: u.pathname + u.search,
         headers: { "Content-Type": "application/json", "Content-Length": data.length, ...headers },
-        ...(ca ? { ca } : {}),
+        // A custom CA is added to (not substituted for) the standard roots.
+        ...(ca ? { ca: [...tls.rootCertificates, ca] } : {}),
         timeout: timeoutMs,
       },
       (res) => {

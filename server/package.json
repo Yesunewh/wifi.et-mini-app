@@ -12,7 +12,8 @@
     "dev": "node --disable-warning=ExperimentalWarning --watch src/index.js",
     "test": "node --disable-warning=ExperimentalWarning --test \"test/*.test.js\"",
     "keys": "node src/tools/generate-keys.js",
-    "smoke": "node --disable-warning=ExperimentalWarning src/tools/sandbox-smoke.js"
+    "smoke": "node --disable-warning=ExperimentalWarning src/tools/sandbox-smoke.js",
+    "fetch-ca": "node src/tools/fetch-ca.js"
   },
   "dependencies": {
     "express": "^4.21.2"
