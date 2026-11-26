@@ -29,6 +29,8 @@ function buildConfig(env = process.env) {
   }
   const cfg = {
     port: Number(env.PORT || 3000),
+    // Interface to listen on. Keep 127.0.0.1 behind a reverse proxy; Docker sets 0.0.0.0 inside the container.
+    host: env.HOST || "127.0.0.1",
     publicBaseUrl: (env.PUBLIC_BASE_URL || `http://localhost:${env.PORT || 3000}`).replace(/\/$/, ""),
     serveMiniapp: String(env.SERVE_MINIAPP || "true") === "true",
     corsOrigins: (env.CORS_ORIGINS || "*").split(",").map((s) => s.trim()).filter(Boolean),
