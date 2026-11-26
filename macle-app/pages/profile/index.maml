@@ -1,0 +1,43 @@
+<view class="wrap">
+  <view class="row">
+    <view style="width:62px;height:62px;border-radius:20px;background:#8CC63F;color:#fff;font-weight:700;font-size:22px;text-align:center;line-height:62px;margin-right:14px;flex:none">{{initials}}</view>
+    <view class="grow">
+      <view style="font-size:19px;font-weight:700">{{name}}</view>
+      <view class="small muted">{{msisdnMasked}}</view>
+    </view>
+  </view>
+  <view class="strip mt16">
+    <view class="strip-c"><view class="strip-n">{{spentTxt}}</view><view class="strip-l">ETB spent</view></view>
+    <view class="strip-c"><view class="strip-n">{{passes}}</view><view class="strip-l">passes bought</view></view>
+    <view class="strip-c"><view class="strip-n">{{unread}}</view><view class="strip-l">unread</view></view>
+  </view>
+
+  <view class="month">ACCOUNT</view>
+  <view class="card" style="padding:0 14px">
+    <view class="kv row" bindtap="goInbox"><image class="ico" src="../../res/icons/chat-green.png" /><text class="grow" style="margin-left:12px">Inbox</text><text class="muted small">{{unread ? unread + ' new' : ''}}</text><image class="chev" src="../../res/icons/chev-grey.png" /></view>
+    <view class="kv row" bindtap="editPhone"><image class="ico" src="../../res/icons/phone-green.png" /><text class="grow" style="margin-left:12px">Number for Wi-Fi codes</text><text class="muted small">{{msisdnTxt}}</text><image class="chev" src="../../res/icons/chev-grey.png" /></view>
+    <view class="kv row last"><image class="ico" src="../../res/icons/wallet-green.png" /><text class="grow" style="margin-left:12px">Payment method</text><text class="small" style="color:#5E8F22;font-weight:600">telebirr wallet</text></view>
+  </view>
+
+  <view class="month">BUSINESS</view>
+  <view class="card" style="padding:0 14px">
+    <view class="kv row last" bindtap="goBusiness"><image class="ico" src="../../res/icons/store-green.png" /><text class="grow" style="margin-left:12px">wifi.et for Business</text><text class="muted small">{{bizTxt}}</text><image class="chev" src="../../res/icons/chev-grey.png" /></view>
+  </view>
+
+  <view class="month">SUPPORT</view>
+  <view class="card" style="padding:0 14px">
+    <view class="kv row last" bindtap="callHelp"><image class="ico" src="../../res/icons/help-green.png" /><text class="grow" style="margin-left:12px">Help &amp; support</text><text class="muted small">994</text><image class="chev" src="../../res/icons/chev-grey.png" /></view>
+  </view>
+</view>
+
+<view ma:if="{{sheet == 'phone'}}" class="scrim" catchtap="closeSheet">
+  <view class="sheet" catchtap="noop">
+    <view class="grab"></view>
+    <view class="sheet-t">Number for Wi-Fi codes</view>
+    <view class="sheet-s">We send your Wi-Fi code to this number by SMS.</view>
+    <input class="inp" type="number" placeholder="0912 345 678" value="{{phone}}" bindinput="onPhone" />
+    <view ma:if="{{error}}" class="err">{{error}}</view>
+    <view class="cta mt12" bindtap="savePhone">Save</view>
+    <view class="cta ghost mt8" bindtap="closeSheet">Cancel</view>
+  </view>
+</view>

@@ -1,0 +1,8 @@
+{
+  "description": "wifi.et mini app for the telebirr SuperApp",
+  "appid": "ff5fdb911b583d41b13d25af52abacd5",
+  "projectname": "wifiet",
+  "setting": {
+    "es5": false
+  }
+}

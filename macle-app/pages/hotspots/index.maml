@@ -1,0 +1,12 @@
+<view class="wrap">
+  <view class="row" style="justify-content:space-between;margin-bottom:10px">
+    <text class="muted small">{{located ? 'Nearest first' : 'All wifi.et hotspots'}}</text>
+    <text ma:if="{{!located}}" class="lnk" bindtap="locate">Use my location</text>
+  </view>
+  <view class="item" ma:for="{{list}}" ma:key="id">
+    <view class="ring"><image src="../../res/icons/pin-green.png" /></view>
+    <view class="grow"><view class="item-t">{{item.name}}</view><view class="item-s">{{item.sub}}</view></view>
+    <view ma:if="{{item.hasMap}}" class="go" data-id="{{item.id}}" bindtap="directions">Go</view>
+  </view>
+  <view ma:if="{{loaded && list.length == 0}}" class="empty">No hotspots listed yet.</view>
+</view>

@@ -1,0 +1,28 @@
+<view class="wrap">
+  <view class="note" style="margin-bottom:14px"><image class="ico" src="../../res/icons/shield-green.png" />Required before advertising. Details are checked against official business records.</view>
+
+  <view class="fld"><view class="fld-l">Legal business name <text class="req">*</text></view><input class="inp" placeholder="As on trade license" maxlength="200" data-f="legalName" bindinput="onInput" /></view>
+  <view class="fld"><view class="fld-l">Business type <text class="req">*</text></view><view class="sel" data-f="businessType" bindtap="pick"><text class="{{f.businessType ? '' : 'ph'}}">{{f.businessType || 'Select…'}}</text><image class="chev" src="../../res/icons/chev-grey.png" /></view></view>
+  <view class="fld"><view class="fld-l">Sector</view><view class="sel" data-f="sector" bindtap="pick"><text class="{{f.sector ? '' : 'ph'}}">{{f.sector || 'Select…'}}</text><image class="chev" src="../../res/icons/chev-grey.png" /></view></view>
+  <view class="fld"><view class="fld-l">TIN (10 digits) <text class="req">*</text></view><input class="inp" type="number" maxlength="10" placeholder="Tax Identification Number" data-f="tin" bindinput="onInput" /></view>
+  <view class="fld"><view class="fld-l">Trade license number <text class="req">*</text></view><input class="inp" maxlength="60" placeholder="e.g. AA/14/1/0000000/2016" data-f="licenseNo" bindinput="onInput" /></view>
+  <view class="fld"><view class="fld-l">City</view><view class="sel" data-f="city" bindtap="pick"><text>{{f.city}}</text><image class="chev" src="../../res/icons/chev-grey.png" /></view></view>
+  <view class="fld"><view class="fld-l">Contact person <text class="req">*</text></view><input class="inp" maxlength="120" placeholder="Full name" data-f="contactPerson" bindinput="onInput" /></view>
+  <view class="fld"><view class="fld-l">Contact phone</view><input class="inp" type="number" maxlength="20" data-f="phone" bindinput="onInput" /></view>
+  <view class="fld"><view class="fld-l">Email</view><input class="inp" maxlength="120" placeholder="name@company.et" data-f="email" bindinput="onInput" /></view>
+
+  <view class="sect-t" style="margin:6px 0 8px">Documents <text class="req">*</text></view>
+  <view class="item" ma:for="{{docList}}" ma:key="key" data-k="{{item.key}}" bindtap="attach" style="border:1px dashed {{item.done ? '#8CC63F' : '#C4CABF'}};background:{{item.done ? '#EEF6E2' : '#ffffff'}}">
+    <image class="ico" src="../../res/icons/{{item.done ? 'check-green' : 'doc-grey'}}.png" style="margin-right:10px" />
+    <view class="grow"><view class="item-t" style="font-weight:500">{{item.label}}</view><view class="item-s">{{item.done ? 'Photo attached' : item.hint}}</view></view>
+    <text class="lnk">{{item.done ? 'Change' : 'Attach'}}</text>
+  </view>
+
+  <view class="row mt12" bindtap="toggleConsent" style="align-items:flex-start">
+    <view style="width:22px;height:22px;border-radius:6px;border:2px solid {{consent ? '#8CC63F' : '#B8BDB4'}};background:{{consent ? '#8CC63F' : '#ffffff'}};flex:none;margin-right:10px;box-sizing:border-box;display:flex;align-items:center;justify-content:center">
+      <image ma:if="{{consent}}" src="../../res/icons/check-white.png" style="width:14px;height:14px" />
+    </view>
+    <text class="small grow" style="line-height:1.45">I confirm this information is accurate and agree that ethio telecom may verify it and process it under its advertising terms and privacy policy.</text>
+  </view>
+  <view class="cta mt16 {{busy ? 'off' : ''}}" bindtap="submit">{{busy ? 'Submitting…' : 'Submit for verification'}}</view>
+</view>

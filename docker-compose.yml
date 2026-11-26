@@ -1,0 +1,20 @@
+# Production-style run on the VPS: docker compose up -d --build
+services:
+  server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    container_name: wifiet-server
+    # Run as the host user (haile) so the bind-mounted data/ stays owned by haile.
+    user: "1001:1001"
+    restart: unless-stopped
+    env_file: server/.env
+    environment:
+      HOST: 0.0.0.0
+      PORT: "3100"
+      DATA_DIR: ./data
+    volumes:
+      - ./server/data:/app/server/data
+      - ./server/keys:/app/server/keys:ro
+    ports:
+      - "127.0.0.1:3100:3100"

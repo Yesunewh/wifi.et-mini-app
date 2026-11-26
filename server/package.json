@@ -1,0 +1,22 @@
+{
+  "name": "wifiet-miniapp-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "wifi.et mini app back end: telebirr SuperApp payments, Wi-Fi vouchers, business KYC",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning src/index.js",
+    "dev": "node --disable-warning=ExperimentalWarning --watch src/index.js",
+    "test": "node --disable-warning=ExperimentalWarning --test \"test/*.test.js\"",
+    "keys": "node src/tools/generate-keys.js",
+    "smoke": "node --disable-warning=ExperimentalWarning src/tools/sandbox-smoke.js",
+    "fetch-ca": "node src/tools/fetch-ca.js",
+    "matrix": "node --disable-warning=ExperimentalWarning src/tools/preorder-matrix.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

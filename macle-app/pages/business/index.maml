@@ -1,0 +1,37 @@
+<view class="wrap">
+  <view class="hero" style="background:linear-gradient(135deg,#17331F,#2E5A12 70%,#4C8A1E)">
+    <view class="pass-k">WIFI.ET FOR BUSINESS</view>
+    <view class="hero-t" style="margin:6px 0 4px">Advertise to people as they connect</view>
+    <view class="hero-s">Put your brand in front of Wi-Fi users at the hotspots you choose.</view>
+  </view>
+
+  <view class="sect"><text class="sect-t">Ad formats</text></view>
+  <view class="item" ma:for="{{formats}}" ma:key="id">
+    <view class="ring"><image src="../../res/icons/{{item.icon}}-green.png" /></view>
+    <view class="grow"><view class="item-t">{{item.name}}</view><view class="item-s">{{item.description}}</view><view class="small bold" style="color:#2E5A12;margin-top:3px">{{item.price}}</view></view>
+  </view>
+
+  <view class="sect"><text class="sect-t">How it works</text></view>
+  <view class="howto">
+    <view class="li">1. Verify your business (KYC)</view>
+    <view class="li">2. Tell us about your campaign</view>
+    <view class="li">3. Our wifi.et business team contacts you</view>
+  </view>
+
+  <view class="sect"><text class="sect-t">Get started</text></view>
+  <view ma:if="{{status == 'none' || status == 'rejected'}}" class="card" style="background:#FFF8E5;border:1px solid #F3D98A">
+    <view class="row"><image class="ico" src="../../res/icons/shield-green.png" style="margin-right:10px" /><text class="bold">{{status == 'rejected' ? 'Verification not approved' : 'Step 1: Verify your business'}}</text></view>
+    <view class="small mt8">{{status == 'rejected' ? note : 'ethio telecom checks every advertiser against official business records (KYC) before ads can run.'}}</view>
+    <view class="cta mt12" bindtap="goKyc">{{status == 'rejected' ? 'Correct and resubmit' : 'Start verification'}}</view>
+  </view>
+  <view ma:elif="{{status == 'review'}}" class="card" style="background:#EAF1FB;border:1px solid #B9CFEE">
+    <view class="row"><image class="ico" src="../../res/icons/clock-green.png" style="margin-right:10px" /><text class="bold">Verification under review</text></view>
+    <view class="small mt8">We are checking {{legalName}}. You'll get a message in your inbox when it's reviewed.</view>
+  </view>
+  <view ma:else class="card" style="background:#EEF6E2;border:1px solid #C9E4A3">
+    <view class="row"><image class="ico" src="../../res/icons/check-green.png" style="margin-right:10px" /><text class="bold">Verified business</text></view>
+    <view class="small mt8">{{legalName}} · TIN {{tin}}</view>
+    <view class="cta mt12" bindtap="goContact">Contact our sales team</view>
+  </view>
+  <view ma:if="{{status != 'verified'}}" class="note mt12" style="background:#EDEFEB;color:#6B7368"><image class="ico" src="../../res/icons/lock-grey.png" />Contacting the sales team unlocks after your business is verified.</view>
+</view>

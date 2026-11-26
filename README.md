@@ -1,41 +1,34 @@
-# wifi.et mini app (clickable demo)
+# wifi.et mini app
 
-A clickable HTML demo of selling **wifi.et** Wi-Fi packages through the **telebirr** wallet, prepared by ethio telecom Enterprise Business Development.
+wifi.et sells Wi-Fi packages for ethio telecom hotspots through the **telebirr** SuperApp.
 
-> Demo only. No real payments, codes or customer data. Names, prices, hotspots and review times are placeholders.
+| Folder | What it is |
+|---|---|
+| `macle-app/` | **The mini app** as a native Macle project (maml/mass/js), same format as telebirr's sample. Open in VS Code with the Macle extension. |
+| `miniapp/` | Earlier web (H5) version of the same screens; handy for testing in a browser. |
+| `server/` | The merchant back end (Node 22, Express, SQLite). Talks to the telebirr payment gateway, issues Wi-Fi codes, sends SMS, stores business KYC and sales requests. |
+| `demo/` | The original clickable demo (Option A and Option B) used for presentations. |
+| `docs/INTEGRATION.md` | Setup, telebirr flow, go-live checklist and open items. |
 
-## Run it
+## Run locally (no telebirr needed)
 
-Open `index.html` in any browser. It is one self-contained file with no build step and no server.
+```bash
+cd server
+npm install
+cp .env.example .env        # TELEBIRR_MODE=mock by default
+npm start                   # http://localhost:3000
+```
 
-## What it shows
+Open http://localhost:3000, sign in with any Ethiopian mobile number and buy a package. In mock mode payments are simulated, Wi-Fi codes are generated locally and SMS messages are printed in the server log.
 
-Two channel options for selling the same Wi-Fi packages:
+```bash
+npm test                    # signing, payment flow, KYC
+```
 
-| Option | Where it lives | Flow |
-|---|---|---|
-| **A · Inside Airtime / Package** | A new Wi-Fi tab next to Internet and Voice in telebirr | Home → Airtime/Package → pick plan → confirm → PIN → Wi-Fi code |
-| **B · wifi.et mini app** | telebirr Apps list | Apps → wifi.et → pick plan → pay → code → My Wi-Fi |
+## Connect to the telebirr sandbox
 
-Switch between them inside the phone: **Apps** on the telebirr home opens Option B; **Home** on the Apps screen returns to Option A.
+1. Put the credentials in `server/.env` (`TELEBIRR_MODE=sandbox`, Fabric App ID, App Secret, Merchant App ID, short code).
+2. Save the RSA private key as `server/keys/merchant_private.pem`. `.env`, `keys/` and `data/` are git-ignored; never commit them.
+3. `npm run smoke` checks the token, a 1 ETB pre-order and an order query.
 
-The mini app (Option B) also covers:
-
-- **Hotspots**: map and list of nearby hotspots, QR scan to connect
-- **My Wi-Fi**: live pass with data left, purchase history
-- **Profile and Inbox**: weekly data use, receipts, offers and alerts
-- **wifi.et for Business**: advertising formats, legal KYC (business details and documents), then a request to the sales team
-
-## Screens
-
-| Option A | | | |
-|---|---|---|---|
-| <img src="screenshots/a1_home.png" width="180"> | <img src="screenshots/a2_pkg.png" width="180"> | <img src="screenshots/a4_confirm.png" width="180"> | <img src="screenshots/a6_success.png" width="180"> |
-
-| Option B | | | |
-|---|---|---|---|
-| <img src="screenshots/b1_apps.png" width="180"> | <img src="screenshots/b2_home.png" width="180"> | <img src="screenshots/b3_packages.png" width="180"> | <img src="screenshots/b6_pass.png" width="180"> |
-
-| Hotspots and business | | | |
-|---|---|---|---|
-| <img src="screenshots/c1_hotspots.png" width="180"> | <img src="screenshots/c4_live.png" width="180"> | <img src="screenshots/k1_biz.png" width="180"> | <img src="screenshots/k6_sent.png" width="180"> |
+See `docs/INTEGRATION.md` for the rest.

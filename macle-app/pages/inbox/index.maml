@@ -1,0 +1,15 @@
+<view class="wrap">
+  <view class="row" style="justify-content:space-between;margin-bottom:10px">
+    <text class="muted small">{{unread ? unread + ' new' : 'All caught up'}}</text>
+    <text ma:if="{{unread}}" class="lnk" bindtap="readAll">Mark all read</text>
+  </view>
+  <view class="card" style="margin-bottom:8px;padding:12px;{{item.read ? '' : 'border-left:4px solid #8CC63F'}}" ma:for="{{list}}" ma:key="id" data-id="{{item.id}}" bindtap="open">
+    <view class="row">
+      <view class="ring" style="width:38px;height:38px"><image src="../../res/icons/{{item.iconFile}}" style="width:20px;height:20px" /></view>
+      <view class="grow"><view class="item-t" style="{{item.read ? 'font-weight:500;color:#4A5246' : ''}}">{{item.title}}</view><view class="item-s" ma:if="{{openId != item.id}}">{{item.preview}}</view></view>
+      <text class="small muted" style="flex:none;margin-left:8px">{{item.when}}</text>
+    </view>
+    <view ma:if="{{openId == item.id}}" class="small mt8" style="color:#3A4036;line-height:1.5">{{item.body}}</view>
+  </view>
+  <view ma:if="{{loaded && list.length == 0}}" class="empty">Nothing here yet.</view>
+</view>
